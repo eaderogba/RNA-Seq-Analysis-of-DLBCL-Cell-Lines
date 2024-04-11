@@ -1,4 +1,4 @@
-# RNA-Seq Analysis of DLBCL Cell Lines
+# RNASeq Analysis of Human Triple Negative Breast Cancer Cells Treated with Lespedeza Bicolor Root Extract
 This repository contains the data and code for an RNASeq analysis performed on human triple negative breast cancer cells MDA-MB-231 and BT549 after treatment with Lespedeza bicolor root extract. The analysis aims to explore changes in gene expression related to cell proliferation, adhesion, migration, and invasion in response to the treatment.
 
 # Experimental Design
