@@ -2,10 +2,12 @@
 DATA_DIR="/home/eaderogba279/Bionformatics_Projects/TNBC_Lespedeza_RNASeq_Analysis/data"
 
 # Directory that stores the FastQC reports
-REPORT_DIR="/home/eaderogba279/Bionformatics_Projects/TNBC_Lespedeza_RNASeq_Analysis/fastqc_output"
+REPORT_DIR="/home/eaderogba279/Bionformatics_Projects/TNBC_Lespedeza_RNASeq_Analysis/fastp_output"
 
 # List of accession numbers
 acc_no=("SRR28420795", "SRR28420796", "SRR28420797", "SRR28420798")
+
+FASTQC
 
 # Looping through the array of accession numbers
 for SRA in "${acc_no@]}"
@@ -18,9 +20,17 @@ done
 
 echo "All downloads are completed"
 
-## FASTQC
+# ### GENERATING MULTIQC REPORT ###
 
-# Looping through each pairs of FASTQC files in data directory
+cd $REPORT_DIR
+echo "Generating MultiQC Report"
+
+multiqc .
+
+echo "MultiQC Report Generated"
+
+### FASTP ###
+
 for FILE in $DATA_DIR/*_1.fastq
 do
     # Extract the basename without the _1.fastq.gz or _2.fastq.gz extension
@@ -32,20 +42,13 @@ do
 
     # Check if the corresponding reverse read file exists
     if [ -f $REVERSE_READS ]; then
-        echo "Running FastQC on paired-end reads: $FORWARD_READS and $REVERSE_READS..."
-        fastqc $FORWARD_READS $REVERSE_READS --outdir $REPORT_DIR
-        echo "FastQC report generated for $BASE_NAME"
+        echo "Running Fastp on paired-end reads: $FORWARD_READS and $REVERSE_READS..."
+        fastp -i $FORWARD_READS -I $REVERSE_READS -o "${REPORT_DIR}/${BASE_NAME}_1.fastq" -O "${REPORT_DIR}/${BASE_NAME}_2.fastq"
+
+        echo "Fastp processing completed for $BASE_NAME"
     else
         echo "Reverse read file for $BASE_NAME does not exist. Skipping..."
     fi
 done
 
 echo "FastQC analysis completed for all paired-end files!"
-
-### GENERATING MULTIQC REPORT
-cd $REPORT_DIR
-echo "Generating MultiQC Report"
-
-multiqc .
-
-echo "MultiQC Report Generated"
