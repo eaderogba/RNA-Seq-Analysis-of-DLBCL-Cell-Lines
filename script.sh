@@ -7,7 +7,7 @@ REPORT_DIR="/home/eaderogba279/Bionformatics_Projects/TNBC_Lespedeza_RNASeq_Anal
 # List of accession numbers
 acc_no=("SRR28420795", "SRR28420796", "SRR28420797", "SRR28420798")
 
-FASTQC
+### FASTQC ###
 
 # Looping through the array of accession numbers
 for SRA in "${acc_no@]}"
