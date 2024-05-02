@@ -1,0 +1,5 @@
+"condition"
+"SRR28420795"	"treated"
+"SRR28420796"	"control"
+"SRR28420797"	"treated"
+"SRR28420798"	"control"
